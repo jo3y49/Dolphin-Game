@@ -16,7 +16,7 @@ public class PitchController extends AbstractInputAction {
         float keyValue = e.getValue();
         if (keyValue > -.2 && keyValue < .2) return; // deadzone
 
-        Pitch p = new Pitch(game, keyValue >= .2 ? true : false);
+        Pitch p = new Pitch(game, keyValue >= .2 ? false : true);
         p.performAction(time, e);
     }
 }

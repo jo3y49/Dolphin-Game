@@ -211,7 +211,7 @@ public class MyGame extends VariableFrameRateGame
 		if (dolphinExhaustion < 100)
 			//dolphinExhaustion += (currFrameTime - lastFrameTime) / 200f;
 
-		checkPrizeCollision();
+		//checkPrizeCollision();
 		if (dolphinExhaustion > 0 && dolphinExhaustion < 100 && avatar.getLocalLocation().distance(pyr.getLocalLocation()) <= 2f)
 			dolphinExhaustion -= (currFrameTime - lastFrameTime) / 50f;
 	}

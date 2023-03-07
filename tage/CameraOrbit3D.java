@@ -16,6 +16,7 @@ public class CameraOrbit3D{
     {
         engine = e;
         camera = cam;
+        avatar = av;
         cameraAzimuth = 0f;
         cameraElevation = 20f;
         cameraRadius = 2f;
@@ -31,8 +32,13 @@ public class CameraOrbit3D{
 
         InputManager im = engine.getInputManager();
 
-        im.associateAction(gp, net.java.games.input.Component.Identifier.Axis.RX,
-            azmAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        if (gp != null)
+        {
+            im.associateActionWithAllGamepads(net.java.games.input.Component.Identifier.Axis.RX,
+                azmAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        }
+
+        
         
     }
     public void updateCameraPosition()
