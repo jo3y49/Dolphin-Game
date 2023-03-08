@@ -4,6 +4,7 @@ import tage.*;
 import tage.shapes.*;
 import tage.input.*;
 import tage.input.action.*;
+import tage.nodeControllers.*;
 import net.java.games.input.Component.Identifier.*;
 import java.lang.Math;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class MyGame extends VariableFrameRateGame
 	private double elapsTime;
 	private InputManager im;
 	private CameraOrbit3D orbitController;
+	private NodeController rc, sc;
 	private GameObject avatar, cub, tor, pyr, sph, x, y, z;
 	private ObjShape dolS, cubS, torS, pyrS, sphS, linxS, linyS, linzS;
 	private TextureImage doltx, brick, earth, cubePattern;
@@ -143,6 +145,16 @@ public class MyGame extends VariableFrameRateGame
 		currFrameTime = System.currentTimeMillis();
 		elapsTime = 0.0;
 		(engine.getRenderSystem()).setWindowDimensions(1900,1000);
+
+		rc = new RotationController(engine, new Vector3f(0,1,0), .001f);
+		sc = new StretchController(engine, 2f);
+		rc.addTarget(avatar);
+		rc.addTarget(pyr);
+		sc.addTarget(avatar);
+		(engine.getSceneGraph()).addNodeController(rc);
+		(engine.getSceneGraph()).addNodeController(sc);
+		//rc.toggle();
+		sc.toggle();
 
 		im = engine.getInputManager();
 
