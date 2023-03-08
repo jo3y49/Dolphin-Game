@@ -66,12 +66,12 @@ public class CameraOrbit3D{
             float rotAmount;
             if (event.getValue() < -.2)
             {
-                rotAmount=-.2f;
+                rotAmount=-2f;
             }
             else
             {
                 if (event.getValue() > .2)
-                    rotAmount=.2f;
+                    rotAmount=2f;
                 else
                     rotAmount=0f;
             }
@@ -87,12 +87,12 @@ public class CameraOrbit3D{
             float rotAmount;
             if (event.getValue() < -.2)
             {
-                rotAmount=-.2f;
+                rotAmount=-.1f;
             }
             else
             {
                 if (event.getValue() > .2)
-                    rotAmount=.2f;
+                    rotAmount=.1f;
                 else
                     rotAmount=0f;
             }
@@ -108,12 +108,12 @@ public class CameraOrbit3D{
             float rotAmount;
             if (event.getValue() < -.2)
             {
-                rotAmount=-.2f;
+                rotAmount=-2f;
             }
             else
             {
                 if (event.getValue() > .2)
-                    rotAmount=.2f;
+                    rotAmount=2f;
                 else
                     rotAmount=0f;
             }
