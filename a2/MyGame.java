@@ -154,7 +154,7 @@ public class MyGame extends VariableFrameRateGame
 		(engine.getSceneGraph()).addNodeController(rc);
 		(engine.getSceneGraph()).addNodeController(sc);
 		//rc.toggle();
-		sc.toggle();
+		//sc.toggle();
 
 		im = engine.getInputManager();
 

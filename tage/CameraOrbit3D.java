@@ -38,6 +38,10 @@ public class CameraOrbit3D{
                 azmAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
         }
         im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.J, azmAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.K, orbAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.I, eleAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+
+
 
         
         
@@ -92,8 +96,8 @@ public class CameraOrbit3D{
                 else
                     rotAmount=0f;
             }
-            cameraAzimuth += rotAmount;
-            cameraAzimuth = cameraAzimuth % 360;
+            cameraRadius += rotAmount;
+            cameraRadius = cameraRadius % 360;
             updateCameraPosition();
         }
     }
@@ -113,8 +117,8 @@ public class CameraOrbit3D{
                 else
                     rotAmount=0f;
             }
-            cameraAzimuth += rotAmount;
-            cameraAzimuth = cameraAzimuth % 360;
+            cameraElevation += rotAmount;
+            cameraElevation = cameraElevation % 360;
             updateCameraPosition();
         }
     }
