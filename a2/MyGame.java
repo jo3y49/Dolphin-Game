@@ -220,6 +220,7 @@ public class MyGame extends VariableFrameRateGame
 		im.update((float)elapsTime);
 
 		orbitController.updateCameraPosition();
+		
 		if (dolphinExhaustion < 100)
 			//dolphinExhaustion += (currFrameTime - lastFrameTime) / 200f;
 

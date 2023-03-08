@@ -41,23 +41,20 @@ public class CameraOrbit3D{
         im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.K, orbAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
         im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.I, eleAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
 
-
-
-        
-        
     }
+
     public void updateCameraPosition()
     {
         Vector3f avatarRot = avatar.getWorldForwardVector();
         double avatarAngle = Math.toDegrees((double) avatarRot.angleSigned(new Vector3f(0,0,-1), new Vector3f(0,1,0)));
         float totalAz = cameraAzimuth - (float) avatarAngle;
-        double theta = Math.toRadians(cameraAzimuth);
+        double theta = Math.toRadians(totalAz);
         double phi = Math.toRadians(cameraElevation);
         float x = cameraRadius * (float)(Math.cos(phi) * Math.sin(theta));
         float y = cameraRadius * (float)(Math.sin(phi));
         float z = cameraRadius * (float)(Math.cos(phi) * Math.cos(theta));
-        camera.setLocation(new Vector3f(x,y,z).add(avatar.getWorldLocation()));
-        camera.lookAt(avatar);
+        camera.setLocation(new Vector3f(x,y+1,z).add(avatar.getWorldLocation()));
+        camera.lookAt(avatar.getWorldLocation());
     }
     private class OrbitAzimuthAction extends AbstractInputAction {
         
