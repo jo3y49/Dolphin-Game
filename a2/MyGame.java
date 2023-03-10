@@ -21,9 +21,9 @@ public class MyGame extends VariableFrameRateGame
 	private double elapsTime;
 	private InputManager im;
 	private CameraOrbit3D orbitController;
-	private NodeController rc, sc;
-	private GameObject avatar, cub, tor, pyr, sph, x, y, z;
-	private ObjShape dolS, cubS, torS, pyrS, sphS, linxS, linyS, linzS;
+	private NodeController rc, sc, gc;
+	private GameObject avatar, cub, tor, pyr, sph, ground, x, y, z;
+	private ObjShape dolS, cubS, torS, pyrS, sphS, groundS, linxS, linyS, linzS;
 	private TextureImage doltx, brick, earth, cubePattern;
 	private Light light1;
 	private ArrayList<GameObject> prizes = new ArrayList<>();
@@ -44,6 +44,7 @@ public class MyGame extends VariableFrameRateGame
 		torS = new Torus(.5f, .2f, 48);
 		pyrS = new ManualPyramid();
 		sphS = new Sphere();
+		groundS = new Plane();
 		linxS = new Line(new Vector3f(0f, 0f, 0f), new Vector3f(5f, 0f, 0f));
 		linyS = new Line(new Vector3f(0f, 0f, 0f), new Vector3f(0f, 5f, 0f));
 		linzS = new Line(new Vector3f(0f, 0f, 0f), new Vector3f(0f, 0f, -5f));
@@ -89,6 +90,12 @@ public class MyGame extends VariableFrameRateGame
 		initialScale = (new Matrix4f()).scaling(1f);
 		tor.setLocalScale(initialScale);
 		prizes.add(tor);
+
+		ground = new GameObject(GameObject.root(), groundS, earth);
+		initialTranslation = (new Matrix4f()).translation(0,0,0);
+		ground.setLocalTranslation(initialTranslation);
+		initialScale = (new Matrix4f()).scaling(10f);
+		ground.setLocalScale(initialScale);
 
 		// add X, Y, -Z axes
 		x = new GameObject(GameObject.root(), linxS);
@@ -147,12 +154,22 @@ public class MyGame extends VariableFrameRateGame
 		(engine.getRenderSystem()).setWindowDimensions(1900,1000);
 
 		rc = new RotationController(engine, new Vector3f(0,1,0), .001f);
-		sc = new StretchController(engine, 2f);
+		//sc = new StretchController(engine, 2f);
+		gc = new GlowController(engine);
+
 		rc.addTarget(avatar);
 		rc.addTarget(pyr);
-		sc.addTarget(avatar);
+		//sc.addTarget(avatar);
+
+		for (int i = 0; i < prizes.size(); i++)
+		{
+			gc.addTarget(prizes.get(i));
+			rc.addTarget(prizes.get(i));
+		}
+			
+
 		(engine.getSceneGraph()).addNodeController(rc);
-		(engine.getSceneGraph()).addNodeController(sc);
+		//(engine.getSceneGraph()).addNodeController(sc);
 		//rc.toggle();
 		//sc.toggle();
 
