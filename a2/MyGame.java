@@ -178,8 +178,9 @@ public class MyGame extends VariableFrameRateGame
 		im = engine.getInputManager();
 
 		String gpName = im.getFirstGamepadName();
-		Camera c = (engine.getRenderSystem()).getViewport("LEFT").getCamera();
-		orbitController = new CameraOrbit3D(c, avatar, gpName, engine);
+		Camera cBig = (engine.getRenderSystem()).getViewport("LEFT").getCamera();
+		Camera cSmall = (engine.getRenderSystem()).getViewport("RIGHT").getCamera();
+		orbitController = new CameraOrbit3D(cBig, avatar, gpName, engine);
 
 		StraightMovementController moveController = new StraightMovementController(this);
 		StraightMovement moveForward = new StraightMovement(this, true);
