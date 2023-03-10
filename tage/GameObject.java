@@ -394,8 +394,7 @@ public class GameObject
 		Matrix4f oldRotation = new Matrix4f(getWorldRotation());
 		Vector4f oldUp = new Vector4f(0f,1f,0f,1f).mul(oldRotation);
 
-		Matrix4f rotAroundAvatarUp;
-		rotAroundAvatarUp = new Matrix4f().rotation(rotationSpeed, new Vector3f(oldUp.x(), oldUp.y(), oldUp.z()));
+		Matrix4f rotAroundAvatarUp = new Matrix4f().rotation(rotationSpeed, new Vector3f(oldUp.x(), oldUp.y(), oldUp.z()));
 
 		Matrix4f newRotation = oldRotation;
 		rotAroundAvatarUp.mul(newRotation);

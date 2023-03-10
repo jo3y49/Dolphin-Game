@@ -3,11 +3,11 @@ package tage.nodeControllers;
 import tage.*;
 import org.joml.*;
 
-public class JumpController extends NodeController
+public class GlowController extends NodeController
 {
     private Engine engine;
 
-    public JumpController(Engine e)
+    public GlowController(Engine e)
     { 
         super();
         engine = e;
