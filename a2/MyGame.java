@@ -71,21 +71,21 @@ public class MyGame extends VariableFrameRateGame
 		avatar.setLocalRotation(initialRotation);
 
 		cub = new GameObject(GameObject.root(), cubS, cubePattern);
-		initialTranslation = (new Matrix4f()).translation(20,10,-10);
+		initialTranslation = (new Matrix4f()).translation(20,5,-10);
 		initialScale = (new Matrix4f()).scaling(.6f);
 		cub.setLocalTranslation(initialTranslation);
 		cub.setLocalScale(initialScale);
 		prizes.add(cub);
 
 		sph = new GameObject(GameObject.root(), sphS, earth);
-		initialTranslation = (new Matrix4f()).translation(-25,0,-5);
+		initialTranslation = (new Matrix4f()).translation(-25,5,-5);
 		initialScale = (new Matrix4f()).scaling(.7f);
 		sph.setLocalTranslation(initialTranslation);
 		sph.setLocalScale(initialScale);
 		prizes.add(sph);
 
 		tor = new GameObject(GameObject.root(), torS, earth);
-		initialTranslation = (new Matrix4f()).translation(11, -20, 10);
+		initialTranslation = (new Matrix4f()).translation(11, 5, 10);
 		tor.setLocalTranslation(initialTranslation);
 		initialScale = (new Matrix4f()).scaling(1f);
 		tor.setLocalScale(initialScale);
@@ -170,8 +170,10 @@ public class MyGame extends VariableFrameRateGame
 
 		(engine.getSceneGraph()).addNodeController(rc);
 		//(engine.getSceneGraph()).addNodeController(sc);
+		(engine.getSceneGraph()).addNodeController(gc);
 		//rc.toggle();
 		//sc.toggle();
+		gc.toggle();
 
 		im = engine.getInputManager();
 
