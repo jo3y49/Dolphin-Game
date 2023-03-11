@@ -234,12 +234,12 @@ public class MyGame extends VariableFrameRateGame
 		setHeldActionToKeyboard(Key.S, moveBackward);
 		setHeldActionToKeyboard(Key.A, yawLeft);
 		setHeldActionToKeyboard(Key.D, yawRight);
-		setHeldActionToKeyboard(Key.R, moveCamIn);
-		setHeldActionToKeyboard(Key.Y, moveCamOut);
-		setHeldActionToKeyboard(Key.T, moveCamUp);
-		setHeldActionToKeyboard(Key.G, moveCamDown);
-		setHeldActionToKeyboard(Key.F, moveCamLeft);
-		setHeldActionToKeyboard(Key.H, moveCamRight);
+		setHeldActionToKeyboard(Key.T, moveCamIn);
+		setHeldActionToKeyboard(Key.G, moveCamOut);
+		setHeldActionToKeyboard(Key.UP, moveCamUp);
+		setHeldActionToKeyboard(Key.DOWN, moveCamDown);
+		setHeldActionToKeyboard(Key.LEFT, moveCamLeft);
+		setHeldActionToKeyboard(Key.RIGHT, moveCamRight);
 		setPressedActionToKeyboard(Key.SPACE, toggle);
 	}
 	
