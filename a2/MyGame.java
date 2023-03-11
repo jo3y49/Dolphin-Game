@@ -16,7 +16,6 @@ public class MyGame extends VariableFrameRateGame
 {
 	private static Engine engine;
 	private int collectedPrizes = 0;
-	private float dolphinExhaustion = -11;
 	private double lastFrameTime, currFrameTime;
 	private double elapsTime;
 	private InputManager im;
@@ -226,25 +225,14 @@ public class MyGame extends VariableFrameRateGame
 		elapsTime += (currFrameTime - lastFrameTime) / 1000.0;
 
 		// build and set HUD
-		String dispStr1;
-		if (dolphinExhaustion < 100)
-		{
-			int dolphinExhaustInt = Math.round(dolphinExhaustion);
-			String dolphinExhaustStr = Integer.toString(dolphinExhaustInt);
-			dispStr1 = "Dolphin Exhaustion = " + dolphinExhaustStr + "%";
-		} else
-		{
-			dispStr1 = "Your dolphin is dead!";
-			if (avatar.getRenderStates().renderingEnabled())
-			{
-				avatar.getRenderStates().disableRendering();
-			}
-		}
 		String collectedStr = Integer.toString(collectedPrizes);
-		String dispStr2 = "Collected Prizes = " + collectedStr;
+		String dispStr1 = "Collected Prizes = " + collectedStr;
+
+		String dispStr2 = avatar.getWorldLocation().toString();
 
 		Vector3f hud1Color = new Vector3f(1,0,0);
 		Vector3f hud2Color = new Vector3f(0,0,1);
+		
 		(engine.getHUDmanager()).setHUD1(dispStr1, hud1Color, 15, 15);
 		(engine.getHUDmanager()).setHUD2(dispStr2, hud2Color, 500, 15);
 
@@ -253,12 +241,6 @@ public class MyGame extends VariableFrameRateGame
 
 		orbitController.updateCameraPosition();
 		
-		if (dolphinExhaustion < 100)
-			//dolphinExhaustion += (currFrameTime - lastFrameTime) / 200f;
-
-		//checkPrizeCollision();
-		if (dolphinExhaustion > 0 && dolphinExhaustion < 100 && avatar.getLocalLocation().distance(pyr.getLocalLocation()) <= 2f)
-			dolphinExhaustion -= (currFrameTime - lastFrameTime) / 50f;
 	}
 
 	private void checkPrizeCollision()
