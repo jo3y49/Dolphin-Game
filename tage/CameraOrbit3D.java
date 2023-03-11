@@ -9,22 +9,25 @@ import tage.input.action.AbstractInputAction;
 public class CameraOrbit3D{
     private Engine engine;
     private Camera camera;
-    private GameObject avatar;
-    private float cameraAzimuth, cameraElevation, cameraRadius;
+    private GameObject avatar, barrier;
+    private float cameraAzimuth, cameraElevation, newCameraElevation, cameraRadius, newCameraRadius;
 
-    public CameraOrbit3D(Camera cam, GameObject av, String gpName, Engine e)
+    public CameraOrbit3D(Camera cam, GameObject av, GameObject ba, Engine e)
     {
         engine = e;
         camera = cam;
         avatar = av;
+        barrier = ba;
         cameraAzimuth = 0f;
         cameraElevation = 20f;
-        cameraRadius = 2f;
-        setupInputs(gpName);
+        cameraRadius = 3f;
+        newCameraElevation = cameraElevation;
+        newCameraRadius = cameraRadius;
+        setupInputs();
         updateCameraPosition();
     }
 
-    private void setupInputs(String gp)
+    private void setupInputs()
     {
         OrbitAzimuthAction azmLeft = new OrbitAzimuthAction(true);
         OrbitAzimuthAction azmRight = new OrbitAzimuthAction(false);
@@ -40,11 +43,9 @@ public class CameraOrbit3D{
 
         InputManager im = engine.getInputManager();
 
-        if (gp != null)
-        {
-            im.associateActionWithAllGamepads(net.java.games.input.Component.Identifier.Axis.RX,
+        im.associateActionWithAllGamepads(net.java.games.input.Component.Identifier.Axis.RX,
                 azmAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-        }
+        
         im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.J, azmLeft, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
         im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.L, azmRight, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
         im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.U, orbIn, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
@@ -59,12 +60,18 @@ public class CameraOrbit3D{
         double avatarAngle = Math.toDegrees((double) avatarRot.angleSigned(new Vector3f(0,0,-1), new Vector3f(0,1,0)));
         float totalAz = cameraAzimuth - (float) avatarAngle;
         double theta = Math.toRadians(totalAz);
-        double phi = Math.toRadians(cameraElevation);
-        float x = cameraRadius * (float)(Math.cos(phi) * Math.sin(theta));
-        float y = cameraRadius * (float)(Math.sin(phi));
-        float z = cameraRadius * (float)(Math.cos(phi) * Math.cos(theta));
-        camera.setLocation(new Vector3f(x,y+1,z).add(avatar.getWorldLocation()));
-        camera.lookAt(avatar.getWorldLocation());
+        double phi = Math.toRadians(newCameraElevation);
+        float x = newCameraRadius * (float)(Math.cos(phi) * Math.sin(theta));
+        float y = newCameraRadius * (float)(Math.sin(phi));
+        float z = newCameraRadius * (float)(Math.cos(phi) * Math.cos(theta));
+
+        if (y + avatar.getWorldLocation().y > barrier.getWorldLocation().y)
+        {
+            camera.setLocation(new Vector3f(x,y,z).add(avatar.getWorldLocation()));
+            camera.lookAt(avatar.getWorldLocation());
+            cameraElevation = newCameraElevation;
+            cameraRadius = newCameraRadius;
+        }
     }
     private class OrbitAzimuthAction extends AbstractInputAction {
 
@@ -107,8 +114,8 @@ public class CameraOrbit3D{
             else 
                 rotAmount = 0f;
             
-            cameraRadius += rotAmount;
-            cameraRadius = cameraRadius % 360;
+            
+            newCameraRadius = cameraRadius + rotAmount;
             updateCameraPosition();
         }
     }
@@ -128,10 +135,10 @@ public class CameraOrbit3D{
             else if (event.getValue() > .2)
                 rotAmount = 2f;
             else 
-                rotAmount=0f;
+                rotAmount = 0f;
 
-            cameraElevation += rotAmount;
-            cameraElevation = cameraElevation % 360;
+            newCameraElevation = cameraElevation + rotAmount;
+            newCameraElevation = newCameraElevation % 360;
             updateCameraPosition();
         }
     }

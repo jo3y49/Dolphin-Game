@@ -65,7 +65,7 @@ public class MyGame extends VariableFrameRateGame
 
 		// build dolphin in the center of the window
 		avatar = new GameObject(GameObject.root(), dolS, doltx);
-		initialTranslation = (new Matrix4f()).translation(-1,1,1);
+		initialTranslation = (new Matrix4f()).translation(0,1,0);
 		initialScale = (new Matrix4f()).scaling(3.0f);
 		initialRotation = (new Matrix4f()).rotationY((float)java.lang.Math.toRadians(135f));
 		avatar.setLocalTranslation(initialTranslation);
@@ -125,19 +125,19 @@ public class MyGame extends VariableFrameRateGame
 	@Override
 	public void createViewports()
 	{
-		(engine.getRenderSystem()).addViewport("LEFT", 0, 0, 1f, 1f);
-		(engine.getRenderSystem()).addViewport("RIGHT", .75f, 0, .25f, .25f);
+		(engine.getRenderSystem()).addViewport("MAIN", 0, 0, 1f, 1f);
+		(engine.getRenderSystem()).addViewport("SMALL", .75f, 0, .25f, .25f);
 
-		Viewport leftVP = (engine.getRenderSystem()).getViewport("LEFT");
-		Viewport rightVP = (engine.getRenderSystem()).getViewport("RIGHT");
+		Viewport leftVP = (engine.getRenderSystem()).getViewport("MAIN");
+		Viewport rightVP = (engine.getRenderSystem()).getViewport("SMALL");
 		Camera leftCamera = leftVP.getCamera();
 		Camera rightCamera = rightVP.getCamera();
 
 		rightVP.setHasBorder(true);
-		rightVP.setBorderWidth(4);
-		rightVP.setBorderColor(0, 1, 0);
+		rightVP.setBorderWidth(2);
+		rightVP.setBorderColor(0, 0, 1);
 
-		leftCamera.setLocation(new Vector3f(-2,0,2));
+		leftCamera.setLocation(new Vector3f(0,0,0));
 		leftCamera.setU(new Vector3f(1,0,0));
 		leftCamera.setV(new Vector3f(0,1,0));
 		leftCamera.setN(new Vector3f(0,0,1));
@@ -179,9 +179,10 @@ public class MyGame extends VariableFrameRateGame
 
 		im = engine.getInputManager();
 
-		String gpName = im.getFirstGamepadName();
-		Camera c = (engine.getRenderSystem()).getViewport("LEFT").getCamera();
-		orbitController = new CameraOrbit3D(c, avatar, gpName, engine);
+		Camera cM = (engine.getRenderSystem()).getViewport("MAIN").getCamera();
+		Camera cS = (engine.getRenderSystem()).getViewport("SMALL").getCamera();
+
+		orbitController = new CameraOrbit3D(cM, avatar, ground, engine);
 
 		StraightMovementController moveController = new StraightMovementController(this);
 		StraightMovement moveForward = new StraightMovement(this, true);
@@ -195,23 +196,23 @@ public class MyGame extends VariableFrameRateGame
 		Pitch pitchUp = new Pitch(this, true);
 		Pitch pitchDown = new Pitch(this, false);
 
-		CameraMovement moveCamIn = new CameraMovement(this, "in");
-		CameraMovement moveCamOut = new CameraMovement(this, "out");
-		CameraMovement moveCamUp = new CameraMovement(this, "up");
-		CameraMovement moveCamDown = new CameraMovement(this, "down");
-		CameraMovement moveCamLeft = new CameraMovement(this, "left");
-		CameraMovement moveCamRight = new CameraMovement(this, "right");
+		CameraMovement moveCamIn = new CameraMovement(cS, this, "in");
+		CameraMovement moveCamOut = new CameraMovement(cS, this, "out");
+		CameraMovement moveCamUp = new CameraMovement(cS, this, "up");
+		CameraMovement moveCamDown = new CameraMovement(cS, this, "down");
+		CameraMovement moveCamLeft = new CameraMovement(cS, this, "left");
+		CameraMovement moveCamRight = new CameraMovement(cS, this, "right");
 
 		setHeldButtonToGamepad(Axis.Y, moveController);
 		setHeldButtonToGamepad(Axis.X, YawController);
-		setHeldButtonToGamepad(Axis.RY, pitchController);
+		//setHeldButtonToGamepad(Axis.RY, pitchController);
 
 		setHeldActionToKeyboard(Key.W, moveForward);
 		setHeldActionToKeyboard(Key.S, moveBackward);
 		setHeldActionToKeyboard(Key.A, yawLeft);
 		setHeldActionToKeyboard(Key.D, yawRight);
-		setHeldActionToKeyboard(Key.UP, pitchUp);
-		setHeldActionToKeyboard(Key.DOWN, pitchDown);
+		//setHeldActionToKeyboard(Key.UP, pitchUp);
+		//setHeldActionToKeyboard(Key.DOWN, pitchDown);
 		setHeldActionToKeyboard(Key.R, moveCamIn);
 		setHeldActionToKeyboard(Key.Y, moveCamOut);
 		setHeldActionToKeyboard(Key.T, moveCamUp);
@@ -233,11 +234,10 @@ public class MyGame extends VariableFrameRateGame
 
 		String dispStr2 = avatar.getWorldLocation().toString();
 
-		Vector3f hud1Color = new Vector3f(1,1,1);
-		Vector3f hud2Color = new Vector3f(1,1,1);
+		Vector3f hudColor = new Vector3f(1,1,1);
 
-		(engine.getHUDmanager()).setHUD1(dispStr1, hud1Color, 15, 15);
-		(engine.getHUDmanager()).setHUD2(dispStr2, hud2Color, 1500, 15);
+		(engine.getHUDmanager()).setHUD1(dispStr1, hudColor, 15, 15);
+		(engine.getHUDmanager()).setHUD2(dispStr2, hudColor, 1500, 15);
 
 		(engine.getHUDmanager()).setHUD1font(GLUT.BITMAP_TIMES_ROMAN_24);
 		(engine.getHUDmanager()).setHUD2font(GLUT.BITMAP_HELVETICA_18);

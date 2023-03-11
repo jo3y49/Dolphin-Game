@@ -397,14 +397,14 @@ public class GameObject
 		Matrix4f rotAroundAvatarUp = new Matrix4f().rotation(rotationSpeed, new Vector3f(oldUp.x(), oldUp.y(), oldUp.z()));
 
 		Matrix4f newRotation = oldRotation;
-		rotAroundAvatarUp.mul(newRotation);
-		setLocalRotation(rotAroundAvatarUp);
+		newRotation.mul(rotAroundAvatarUp);
+		setLocalRotation(newRotation);
 	}
 
 	public void pitch(float pitchSpeed)
 	{
 		Matrix4f oldRotation = new Matrix4f(getWorldRotation());
-		Vector4f oldUp = new Vector4f(1f,0f,0f,0f).mul(oldRotation);
+		Vector4f oldUp = new Vector4f(1f,0f,0f,1f).mul(oldRotation);
 
 		Matrix4f rotAroundAvatarUp = new Matrix4f().rotation(pitchSpeed, new Vector3f(oldUp.x(), oldUp.y(), oldUp.z()));
 

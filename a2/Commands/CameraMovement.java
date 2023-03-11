@@ -12,36 +12,35 @@ import net.java.games.input.Event;
 public class CameraMovement extends AbstractInputAction
 {
     private MyGame game;
-    private GameObject av;
+    private Camera cam;
     private String dir;
 
-    public CameraMovement (MyGame g, String d) { game = g; dir = d; }
+    public CameraMovement (Camera c, MyGame g, String d) { cam = c; game = g; dir = d; }
 
     @Override
     public void performAction(float time, Event e)
     {
-        Camera c = (game.getEngine().getRenderSystem()).getViewport("RIGHT").getCamera();
         float moveSpeed = game.getFrameTime()*.005f;
         
         switch (dir)
         {
             case "in":
-                c.straightMovement(moveSpeed);
+                cam.straightMovement(moveSpeed);
                 break;
             case "out":
-                c.straightMovement(-moveSpeed);
+                cam.straightMovement(-moveSpeed);
                 break;
             case "up":
-                c.panVerticalMovement(moveSpeed);
+                cam.panVerticalMovement(moveSpeed);
                 break;
             case "down":
-                c.panVerticalMovement(-moveSpeed);
+                cam.panVerticalMovement(-moveSpeed);
                 break;
             case "left":
-                c.panHorizontalMovement(-moveSpeed);
+                cam.panHorizontalMovement(-moveSpeed);
                 break;
             case "right":
-                c.panHorizontalMovement(moveSpeed);
+                cam.panHorizontalMovement(moveSpeed);
                 break;
         }
     }
