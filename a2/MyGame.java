@@ -218,10 +218,6 @@ public class MyGame extends VariableFrameRateGame
 		Yaw yawLeft = new Yaw(this, true);
 		Yaw yawRight = new Yaw(this, false);
 
-		PitchController pitchController = new PitchController(this);
-		Pitch pitchUp = new Pitch(this, true);
-		Pitch pitchDown = new Pitch(this, false);
-
 		CameraMovement moveCamIn = new CameraMovement(cS, this, "in");
 		CameraMovement moveCamOut = new CameraMovement(cS, this, "out");
 		CameraMovement moveCamUp = new CameraMovement(cS, this, "up");
@@ -233,14 +229,11 @@ public class MyGame extends VariableFrameRateGame
 
 		setHeldButtonToGamepad(Axis.Y, moveController);
 		setHeldButtonToGamepad(Axis.X, YawController);
-		//setHeldButtonToGamepad(Axis.RY, pitchController);
 
 		setHeldActionToKeyboard(Key.W, moveForward);
 		setHeldActionToKeyboard(Key.S, moveBackward);
 		setHeldActionToKeyboard(Key.A, yawLeft);
 		setHeldActionToKeyboard(Key.D, yawRight);
-		//setHeldActionToKeyboard(Key.UP, pitchUp);
-		//setHeldActionToKeyboard(Key.DOWN, pitchDown);
 		setHeldActionToKeyboard(Key.R, moveCamIn);
 		setHeldActionToKeyboard(Key.Y, moveCamOut);
 		setHeldActionToKeyboard(Key.T, moveCamUp);
