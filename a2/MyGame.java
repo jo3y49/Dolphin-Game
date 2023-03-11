@@ -233,11 +233,13 @@ public class MyGame extends VariableFrameRateGame
 
 		String dispStr2 = avatar.getWorldLocation().toString();
 
-		Vector3f hud1Color = new Vector3f(0,0,0);
-		Vector3f hud2Color = new Vector3f(0,0,0);
+		Vector3f hud1Color = new Vector3f(1,1,1);
+		Vector3f hud2Color = new Vector3f(1,1,1);
 
 		(engine.getHUDmanager()).setHUD1(dispStr1, hud1Color, 15, 15);
 		(engine.getHUDmanager()).setHUD2(dispStr2, hud2Color, 1500, 15);
+
+		(engine.getHUDmanager()).setHUD1font(GLUT.BITMAP_TIMES_ROMAN_24);
 		(engine.getHUDmanager()).setHUD2font(GLUT.BITMAP_HELVETICA_18);
 
 		// update inputs and camera
