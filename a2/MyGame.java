@@ -303,6 +303,8 @@ public class MyGame extends VariableFrameRateGame
 				mini.getRenderStates().enableRendering();
 				
 				prizes.remove(i);
+				if (prizes.size() == 0)
+					rc.addTarget(pyr);
 			}
 		}
 	}
