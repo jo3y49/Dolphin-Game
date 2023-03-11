@@ -9,6 +9,9 @@ import net.java.games.input.Component.Identifier.*;
 import java.lang.Math;
 import java.util.ArrayList;
 import org.joml.*;
+
+import com.jogamp.opengl.util.gl2.GLUT;
+
 import a2.Commands.*;
 import a2.Shapes.*;
 
@@ -230,11 +233,12 @@ public class MyGame extends VariableFrameRateGame
 
 		String dispStr2 = avatar.getWorldLocation().toString();
 
-		Vector3f hud1Color = new Vector3f(1,0,0);
-		Vector3f hud2Color = new Vector3f(0,0,1);
-		
+		Vector3f hud1Color = new Vector3f(0,0,0);
+		Vector3f hud2Color = new Vector3f(0,0,0);
+
 		(engine.getHUDmanager()).setHUD1(dispStr1, hud1Color, 15, 15);
-		(engine.getHUDmanager()).setHUD2(dispStr2, hud2Color, 500, 15);
+		(engine.getHUDmanager()).setHUD2(dispStr2, hud2Color, 1500, 15);
+		(engine.getHUDmanager()).setHUD2font(GLUT.BITMAP_HELVETICA_18);
 
 		// update inputs and camera
 		im.update((float)elapsTime);
