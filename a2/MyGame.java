@@ -9,9 +9,7 @@ import net.java.games.input.Component.Identifier.*;
 import java.lang.Math;
 import java.util.ArrayList;
 import org.joml.*;
-
 import com.jogamp.opengl.util.gl2.GLUT;
-
 import a2.Commands.*;
 import a2.Shapes.*;
 
@@ -25,7 +23,7 @@ public class MyGame extends VariableFrameRateGame
 	private NodeController rc, sc, gc;
 	private GameObject avatar, cub, cubM, tor, torM, sph, sphM, pyr, ground, x, y, z;
 	private ObjShape dolS, cubS, torS, pyrS, sphS, groundS, linxS, linyS, linzS;
-	private TextureImage doltx, brick, earth, cubePattern;
+	private TextureImage doltx, brick, castle, ice, dirt, cubePattern;
 	private Light light1;
 	private ArrayList<GameObject> prizes = new ArrayList<>();
 	private ArrayList<GameObject> collectedPrizes = new ArrayList<>();
@@ -58,6 +56,10 @@ public class MyGame extends VariableFrameRateGame
 	{	
 		doltx = new TextureImage("Dolphin_HighPolyUV.png");
 		cubePattern = new TextureImage("Cube_Decoration.png");
+		ice = new TextureImage("ice.jpg");
+		castle = new TextureImage("castleroof.jpg");
+		brick = new TextureImage("brick1.jpg");
+		dirt = new TextureImage("bkgd1.jpg");
 	}	 
 
 	@Override
@@ -80,14 +82,14 @@ public class MyGame extends VariableFrameRateGame
 		cub.setLocalScale(initialScale);
 		prizes.add(cub);
 
-		sph = new GameObject(GameObject.root(), sphS, earth);
+		sph = new GameObject(GameObject.root(), sphS, dirt);
 		initialTranslation = (new Matrix4f()).translation(-25,1,-5);
 		initialScale = (new Matrix4f()).scaling(.7f);
 		sph.setLocalTranslation(initialTranslation);
 		sph.setLocalScale(initialScale);
 		prizes.add(sph);
 
-		tor = new GameObject(GameObject.root(), torS, earth);
+		tor = new GameObject(GameObject.root(), torS, castle);
 		initialTranslation = (new Matrix4f()).translation(11, 1, 10);
 		tor.setLocalTranslation(initialTranslation);
 		prizes.add(tor);
@@ -110,7 +112,7 @@ public class MyGame extends VariableFrameRateGame
 		cubM.propagateRotation(false);
 		cubM.getRenderStates().disableRendering();
 
-		sphM = new GameObject(GameObject.root(), sphS, earth);
+		sphM = new GameObject(GameObject.root(), sphS, dirt);
 		initialTranslation = (new Matrix4f()).translation(-.6f,2,0);
 		sphM.setLocalTranslation(initialTranslation);
 		initialScale = (new Matrix4f()).scaling(.07f);
@@ -120,7 +122,7 @@ public class MyGame extends VariableFrameRateGame
 		sphM.propagateRotation(false);
 		sphM.getRenderStates().disableRendering();
 
-		torM = new GameObject(GameObject.root(), torS, earth);
+		torM = new GameObject(GameObject.root(), torS, castle);
 		initialTranslation = (new Matrix4f()).translation(.3f,2,-.6f);
 		torM.setLocalTranslation(initialTranslation);
 		initialScale = (new Matrix4f()).scaling(.1f);
@@ -130,7 +132,7 @@ public class MyGame extends VariableFrameRateGame
 		torM.propagateRotation(false);
 		torM.getRenderStates().disableRendering();
 
-		ground = new GameObject(GameObject.root(), groundS, earth);
+		ground = new GameObject(GameObject.root(), groundS, ice);
 		initialTranslation = (new Matrix4f()).translation(0,0,0);
 		ground.setLocalTranslation(initialTranslation);
 		initialScale = (new Matrix4f()).scaling(50f);
