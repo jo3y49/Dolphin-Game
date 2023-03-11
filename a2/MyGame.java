@@ -63,7 +63,7 @@ public class MyGame extends VariableFrameRateGame
 
 		// build dolphin in the center of the window
 		avatar = new GameObject(GameObject.root(), dolS, doltx);
-		initialTranslation = (new Matrix4f()).translation(-1,0,1);
+		initialTranslation = (new Matrix4f()).translation(-1,1,1);
 		initialScale = (new Matrix4f()).scaling(3.0f);
 		initialRotation = (new Matrix4f()).rotationY((float)java.lang.Math.toRadians(135f));
 		avatar.setLocalTranslation(initialTranslation);
@@ -94,7 +94,7 @@ public class MyGame extends VariableFrameRateGame
 		ground = new GameObject(GameObject.root(), groundS, earth);
 		initialTranslation = (new Matrix4f()).translation(0,0,0);
 		ground.setLocalTranslation(initialTranslation);
-		initialScale = (new Matrix4f()).scaling(10f);
+		initialScale = (new Matrix4f()).scaling(50f);
 		ground.setLocalScale(initialScale);
 
 		// add X, Y, -Z axes
@@ -159,7 +159,7 @@ public class MyGame extends VariableFrameRateGame
 
 		rc.addTarget(avatar);
 		rc.addTarget(pyr);
-		//sc.addTarget(avatar);
+		gc.addTarget(avatar);
 
 		for (int i = 0; i < prizes.size(); i++)
 		{

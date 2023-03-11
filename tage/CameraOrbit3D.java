@@ -26,8 +26,16 @@ public class CameraOrbit3D{
 
     private void setupInputs(String gp)
     {
+        OrbitAzimuthAction azmLeft = new OrbitAzimuthAction(true);
+        OrbitAzimuthAction azmRight = new OrbitAzimuthAction(false);
         OrbitAzimuthAction azmAction = new OrbitAzimuthAction();
+
+        OrbitRadiusAction orbIn = new OrbitRadiusAction(false);
+        OrbitRadiusAction orbOut = new OrbitRadiusAction(true);
         OrbitRadiusAction orbAction = new OrbitRadiusAction();
+
+        OrbitElevationAction eleUp = new OrbitElevationAction(false);
+        OrbitElevationAction eleDown = new OrbitElevationAction(true);
         OrbitElevationAction eleAction = new OrbitElevationAction();
 
         InputManager im = engine.getInputManager();
@@ -37,10 +45,12 @@ public class CameraOrbit3D{
             im.associateActionWithAllGamepads(net.java.games.input.Component.Identifier.Axis.RX,
                 azmAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
         }
-        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.J, azmAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.K, orbAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.I, eleAction, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
-
+        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.J, azmLeft, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.L, azmRight, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.U, orbIn, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.O, orbOut, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.I, eleUp, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
+        im.associateActionWithAllKeyboards(net.java.games.input.Component.Identifier.Key.K, eleDown, InputManager.INPUT_ACTION_TYPE.REPEAT_WHILE_DOWN);
     }
 
     public void updateCameraPosition()
@@ -57,63 +67,69 @@ public class CameraOrbit3D{
         camera.lookAt(avatar.getWorldLocation());
     }
     private class OrbitAzimuthAction extends AbstractInputAction {
+
+        private boolean left = false;
+
+        public OrbitAzimuthAction() {}
         
+        public OrbitAzimuthAction(boolean l) { left = l; }
+
         public void performAction(float time, Event event)
         {
             float rotAmount;
-            if (event.getValue() < -.2)
-            {
-                rotAmount=-2f;
-            }
-            else
-            {
-                if (event.getValue() > .2)
-                    rotAmount=2f;
-                else
-                    rotAmount=0f;
-            }
+            if (left || event.getValue() < -.2)
+                rotAmount = -2f;
+            else if (event.getValue() > .2)
+                rotAmount = 2f;
+            else 
+                rotAmount = 0f;
+
             cameraAzimuth += rotAmount;
             cameraAzimuth = cameraAzimuth % 360;
             updateCameraPosition();
         }
     }
     private class OrbitRadiusAction extends AbstractInputAction {
+
+        private boolean out = false;
+
+        public OrbitRadiusAction() {}
+        
+        public OrbitRadiusAction(boolean o) { out = o; }
         
         public void performAction(float time, Event event)
         {
             float rotAmount;
-            if (event.getValue() < -.2)
-            {
-                rotAmount=-.1f;
-            }
-            else
-            {
-                if (event.getValue() > .2)
-                    rotAmount=.1f;
-                else
-                    rotAmount=0f;
-            }
+            if (out || event.getValue() < -.2)
+                rotAmount = -.25f;
+            else if (event.getValue() > .2)
+                rotAmount = .25f;
+            else 
+                rotAmount = 0f;
+            
             cameraRadius += rotAmount;
             cameraRadius = cameraRadius % 360;
             updateCameraPosition();
         }
     }
     private class OrbitElevationAction extends AbstractInputAction {
+
+        private boolean down = false;
+
+        public OrbitElevationAction(){}
+
+        public OrbitElevationAction(boolean d) { down = d; }
         
         public void performAction(float time, Event event)
         {
             float rotAmount;
-            if (event.getValue() < -.2)
-            {
-                rotAmount=-2f;
-            }
-            else
-            {
-                if (event.getValue() > .2)
-                    rotAmount=2f;
-                else
-                    rotAmount=0f;
-            }
+            if (down || event.getValue() < -.2)
+                rotAmount = -2f;
+            else if (event.getValue() > .2)
+                rotAmount = 2f;
+            else 
+                rotAmount=0f;
+
             cameraElevation += rotAmount;
             cameraElevation = cameraElevation % 360;
             updateCameraPosition();

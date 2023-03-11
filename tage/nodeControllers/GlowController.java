@@ -32,6 +32,8 @@ public class GlowController extends NodeController
                 (go.getRenderStates()).setColor(new Vector3f(1f,0f,1f));
             case 5:
                 (go.getRenderStates()).setColor(new Vector3f(0f,1f,1f));
+            default:
+                (go.getRenderStates()).setColor(new Vector3f(0f,1f,1f));
         }
     }
 }
