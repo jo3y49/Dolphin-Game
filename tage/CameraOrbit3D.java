@@ -71,6 +71,9 @@ public class CameraOrbit3D{
             camera.lookAt(avatar.getWorldLocation());
             cameraElevation = newCameraElevation;
             cameraRadius = newCameraRadius;
+        } else {
+            newCameraElevation = cameraElevation;
+            newCameraRadius = cameraRadius;
         }
     }
     private class OrbitAzimuthAction extends AbstractInputAction {
