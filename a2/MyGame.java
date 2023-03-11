@@ -106,6 +106,9 @@ public class MyGame extends VariableFrameRateGame
 		(x.getRenderStates()).setColor(new Vector3f(1f,1f,0f));
 		(y.getRenderStates()).setColor(new Vector3f(0f,1f,0f));
 		(z.getRenderStates()).setColor(new Vector3f(0f,0f,1f));
+		(x.getRenderStates()).disableRendering();
+		(y.getRenderStates()).disableRendering();
+		(z.getRenderStates()).disableRendering();
 
 		//build pyramid
 		pyr = new GameObject(GameObject.root(), pyrS, brick);
@@ -203,6 +206,8 @@ public class MyGame extends VariableFrameRateGame
 		CameraMovement moveCamLeft = new CameraMovement(cS, this, "left");
 		CameraMovement moveCamRight = new CameraMovement(cS, this, "right");
 
+		ArrowToggle toggle = new ArrowToggle(x, y, z);
+
 		setHeldButtonToGamepad(Axis.Y, moveController);
 		setHeldButtonToGamepad(Axis.X, YawController);
 		//setHeldButtonToGamepad(Axis.RY, pitchController);
@@ -219,6 +224,7 @@ public class MyGame extends VariableFrameRateGame
 		setHeldActionToKeyboard(Key.G, moveCamDown);
 		setHeldActionToKeyboard(Key.F, moveCamLeft);
 		setHeldActionToKeyboard(Key.H, moveCamRight);
+		setPressedActionToKeyboard(Key.SPACE, toggle);
 	}
 	
 	@Override

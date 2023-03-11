@@ -1,11 +1,7 @@
 package a2.Commands;
 
 import tage.Camera;
-import tage.GameObject;
 import tage.input.action.AbstractInputAction;
-
-import org.joml.*;
-
 import a2.MyGame;
 import net.java.games.input.Event;
 
