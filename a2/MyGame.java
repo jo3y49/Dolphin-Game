@@ -20,7 +20,7 @@ public class MyGame extends VariableFrameRateGame
 	private double elapsTime;
 	private InputManager im;
 	private CameraOrbit3D orbitController;
-	private NodeController rc, sc, gc;
+	private NodeController rc, fc;
 	private GameObject avatar, cub, cubM, tor, torM, sph, sphM, pyr, ground, x, y, z;
 	private ObjShape dolS, cubS, torS, pyrS, sphS, groundS, linxS, linyS, linzS;
 	private TextureImage doltx, brick, castle, ice, dirt, cubePattern;
@@ -107,6 +107,7 @@ public class MyGame extends VariableFrameRateGame
 		cubM.setLocalTranslation(initialTranslation);
 		initialScale = (new Matrix4f()).scaling(.06f);
 		cubM.setLocalScale(initialScale);
+		cubM.getRenderStates().setColor(new Vector3f(1,1,1));
 		cubM.setParent(pyr);
 		cubM.propagateTranslation(true);
 		cubM.propagateRotation(false);
@@ -117,6 +118,7 @@ public class MyGame extends VariableFrameRateGame
 		sphM.setLocalTranslation(initialTranslation);
 		initialScale = (new Matrix4f()).scaling(.07f);
 		sphM.setLocalScale(initialScale);
+		sphM.getRenderStates().setColor(new Vector3f(1,1,1));
 		sphM.setParent(pyr);
 		sphM.propagateTranslation(true);
 		sphM.propagateRotation(false);
@@ -127,6 +129,7 @@ public class MyGame extends VariableFrameRateGame
 		torM.setLocalTranslation(initialTranslation);
 		initialScale = (new Matrix4f()).scaling(.1f);
 		torM.setLocalScale(initialScale);
+		torM.getRenderStates().setColor(new Vector3f(1,1,1));
 		torM.setParent(pyr);
 		torM.propagateTranslation(true);
 		torM.propagateRotation(false);
@@ -192,23 +195,13 @@ public class MyGame extends VariableFrameRateGame
 		(engine.getRenderSystem()).setWindowDimensions(1900,1000);
 
 		rc = new RotationController(engine, new Vector3f(0,1,0), .001f);
-		//sc = new StretchController(engine, 2f);
-		gc = new GlowController(engine);
-
-		gc.addTarget(avatar);
-
-		for (int i = 0; i < prizes.size(); i++)
-		{
-			gc.addTarget(prizes.get(i));
-		}
-			
+		fc = new FlyController(engine, .0005f);
 
 		(engine.getSceneGraph()).addNodeController(rc);
-		//(engine.getSceneGraph()).addNodeController(sc);
-		(engine.getSceneGraph()).addNodeController(gc);
+		(engine.getSceneGraph()).addNodeController(fc);
+
 		rc.toggle();
-		//sc.toggle();
-		//gc.toggle();
+		fc.toggle();
 
 		im = engine.getInputManager();
 
@@ -303,6 +296,7 @@ public class MyGame extends VariableFrameRateGame
 			if (avatar.getWorldLocation().distance(prizes.get(i).getLocalLocation()) <= 3f)
 			{
 				rc.addTarget(prizes.get(i));
+				fc.addTarget(prizes.get(i));
 				GameObject mini = new GameObject(GameObject.root());
 
 				if (prizes.get(i) == cub)
