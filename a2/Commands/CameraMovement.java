@@ -2,6 +2,9 @@ package a2.Commands;
 
 import tage.Camera;
 import tage.input.action.AbstractInputAction;
+
+import java.util.Vector;
+
 import a2.MyGame;
 import net.java.games.input.Event;
 
@@ -21,7 +24,8 @@ public class CameraMovement extends AbstractInputAction
         switch (dir)
         {
             case "in":
-                cam.straightMovement(moveSpeed);
+                if (cam.getLocation().y > 1)
+                    cam.straightMovement(moveSpeed);
                 break;
             case "out":
                 cam.straightMovement(-moveSpeed);
