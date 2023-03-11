@@ -140,7 +140,7 @@ public class MyGame extends VariableFrameRateGame
 		leftCamera.setV(new Vector3f(0,1,0));
 		leftCamera.setN(new Vector3f(0,0,1));
 
-		rightCamera.setLocation(new Vector3f(0,2,0));
+		rightCamera.setLocation(new Vector3f(0,5,0));
 		rightCamera.setU(new Vector3f(1,0,0));
 		rightCamera.setV(new Vector3f(0,0,-1));
 		rightCamera.setN(new Vector3f(0,-1,0));
@@ -173,14 +173,13 @@ public class MyGame extends VariableFrameRateGame
 		(engine.getSceneGraph()).addNodeController(gc);
 		//rc.toggle();
 		//sc.toggle();
-		gc.toggle();
+		//gc.toggle();
 
 		im = engine.getInputManager();
 
 		String gpName = im.getFirstGamepadName();
-		Camera cBig = (engine.getRenderSystem()).getViewport("LEFT").getCamera();
-		Camera cSmall = (engine.getRenderSystem()).getViewport("RIGHT").getCamera();
-		orbitController = new CameraOrbit3D(cBig, avatar, gpName, engine);
+		Camera c = (engine.getRenderSystem()).getViewport("LEFT").getCamera();
+		orbitController = new CameraOrbit3D(c, avatar, gpName, engine);
 
 		StraightMovementController moveController = new StraightMovementController(this);
 		StraightMovement moveForward = new StraightMovement(this, true);
@@ -194,6 +193,13 @@ public class MyGame extends VariableFrameRateGame
 		Pitch pitchUp = new Pitch(this, true);
 		Pitch pitchDown = new Pitch(this, false);
 
+		CameraMovement moveCamIn = new CameraMovement(this, "in");
+		CameraMovement moveCamOut = new CameraMovement(this, "out");
+		CameraMovement moveCamUp = new CameraMovement(this, "up");
+		CameraMovement moveCamDown = new CameraMovement(this, "down");
+		CameraMovement moveCamLeft = new CameraMovement(this, "left");
+		CameraMovement moveCamRight = new CameraMovement(this, "right");
+
 		setHeldButtonToGamepad(Axis.Y, moveController);
 		setHeldButtonToGamepad(Axis.X, YawController);
 		setHeldButtonToGamepad(Axis.RY, pitchController);
@@ -204,6 +210,12 @@ public class MyGame extends VariableFrameRateGame
 		setHeldActionToKeyboard(Key.D, yawRight);
 		setHeldActionToKeyboard(Key.UP, pitchUp);
 		setHeldActionToKeyboard(Key.DOWN, pitchDown);
+		setHeldActionToKeyboard(Key.R, moveCamIn);
+		setHeldActionToKeyboard(Key.Y, moveCamOut);
+		setHeldActionToKeyboard(Key.T, moveCamUp);
+		setHeldActionToKeyboard(Key.G, moveCamDown);
+		setHeldActionToKeyboard(Key.F, moveCamLeft);
+		setHeldActionToKeyboard(Key.H, moveCamRight);
 	}
 	
 	@Override

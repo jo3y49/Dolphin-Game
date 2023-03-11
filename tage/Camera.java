@@ -106,6 +106,24 @@ public class Camera
 		Vector3f newPosition = oldPosition.add(fwdDirection.x(), fwdDirection.y(), fwdDirection.z());
 		setLocation(newPosition);
 	}
+
+	public void panVerticalMovement(float moveSpeed)
+	{
+		Vector3f oldPosition = getLocation();
+		Vector3f fwdDirection = getV();
+		fwdDirection.mul(moveSpeed);
+		Vector3f newPosition = oldPosition.add(fwdDirection.x(), fwdDirection.y(), fwdDirection.z());
+		setLocation(newPosition);
+	}
+
+	public void panHorizontalMovement(float moveSpeed)
+	{
+		Vector3f oldPosition = getLocation();
+		Vector3f fwdDirection = getU();
+		fwdDirection.mul(moveSpeed);
+		Vector3f newPosition = oldPosition.add(fwdDirection.x(), fwdDirection.y(), fwdDirection.z());
+		setLocation(newPosition);
+	}
 	
 	public void yaw(float rotationSpeed)
 	{
