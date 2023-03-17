@@ -58,7 +58,7 @@ public class RenderSystem extends JFrame implements GLEventListener
 
 	private ArrayList<TextureImage> textures = new ArrayList<TextureImage>();
 	private ArrayList<ObjShape> shapes = new ArrayList<ObjShape>();
-	private HashMap<String, Viewport> viewportList = new HashMap<>();
+	private LinkedHashMap<String, Viewport> viewportList = new LinkedHashMap<String, Viewport>();
 
 	private int canvasWidth, canvasHeight;
 	private boolean isInFullScreenMode = false;

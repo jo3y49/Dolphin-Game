@@ -1,9 +1,8 @@
-package a1.Commands;
+package a2.Commands;
 
 import tage.input.action.AbstractInputAction;
+import a2.MyGame;
 import net.java.games.input.Event;
-
-import a1.MyGame;
 
 public class PitchController extends AbstractInputAction {
 
@@ -17,7 +16,7 @@ public class PitchController extends AbstractInputAction {
         float keyValue = e.getValue();
         if (keyValue > -.2 && keyValue < .2) return; // deadzone
 
-        Pitch p = new Pitch(game, keyValue >= .2 ? true : false);
+        Pitch p = new Pitch(game, keyValue >= .2 ? false : true);
         p.performAction(time, e);
     }
 }

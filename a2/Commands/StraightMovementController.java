@@ -1,15 +1,14 @@
-package a1.Commands;
+package a2.Commands;
 
 import tage.input.action.AbstractInputAction;
+import a2.MyGame;
 import net.java.games.input.Event;
 
-import a1.MyGame;
-
-public class YawController extends AbstractInputAction
+public class StraightMovementController extends AbstractInputAction
 {
     private MyGame game;
 
-    public YawController (MyGame g) { game = g; }
+    public StraightMovementController(MyGame g) { game = g; }
 
     @Override
     public void performAction(float time, Event e)
@@ -17,7 +16,7 @@ public class YawController extends AbstractInputAction
         float keyValue = e.getValue();
         if (keyValue > -.4 && keyValue < .4) return; // deadzone
 
-        Yaw y = new Yaw(game, keyValue <= -.4 ? true : false);
-        y.performAction(time, e);
+        StraightMovement sw = new StraightMovement(game, keyValue <= -.4 ? true : false);
+        sw.performAction(time, e);
     }
 }

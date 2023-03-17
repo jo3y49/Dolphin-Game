@@ -1,9 +1,8 @@
-package a1.Commands;
+package a2.Commands;
 
 import tage.input.action.AbstractInputAction;
+import a2.MyGame;
 import net.java.games.input.Event;
-
-import a1.MyGame;
 
 public class Yaw extends AbstractInputAction
 {
@@ -18,12 +17,6 @@ public class Yaw extends AbstractInputAction
     {
         rotationSpeed = game.getFrameTime() * .002f;
         
-        if (game.getRide())
-        {
-            game.getAvatar().yaw(left ? rotationSpeed : -rotationSpeed);
-        } else 
-        {
-            (game.getEngine().getRenderSystem()).getViewport("MAIN").getCamera().yaw(left ? rotationSpeed : -rotationSpeed); 
-        }
+        game.getAvatar().yaw(left ? rotationSpeed : -rotationSpeed);
     }
 }
